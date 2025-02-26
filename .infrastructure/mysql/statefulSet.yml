@@ -64,7 +64,7 @@ spec:
         - key: "app"
           operator: "Equal"
           value: "mysql"
-          effect: NoSchedule
+          effect: "NoSchedule"
       volumes:
       - name: config-map
         configMap:
@@ -72,21 +72,20 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                      - mysql
-              topologyKey: "kubernetes.io/hostname"
+          - labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                   - mysql
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-              - matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values:
-                      - "mysql"
+            - matchExpressions:
+                - key: "app"
+                  operator: In
+                  values:
+                    - mysql
   volumeClaimTemplates:
   - metadata:
       name: data
@@ -95,6 +94,3 @@ spec:
       resources:
         requests:
           storage: 2Gi
-
-
-
